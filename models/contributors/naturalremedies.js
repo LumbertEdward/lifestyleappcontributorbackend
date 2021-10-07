@@ -5,7 +5,7 @@ class Remedies{
 
     createRemediesTable(){
         const sql = `CREATE TABLE IF NOT EXISTS remedies(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             remedy_id TEXT NOT NULL,
             illness TEXT NOT NULL,
             remedy_name TEXT NOT NULL,
@@ -21,7 +21,7 @@ class Remedies{
 
     createIllnessTable(){
         const sql = `CREATE TABLE IF NOT EXISTS illness(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             illness_id TEXT NOT NULL,
             illness TEXT NOT NULL
         )`;
@@ -86,9 +86,9 @@ class Remedies{
         return this.dao.all(sql);
     }
 
-    viewIllnessRemedy(illness){
+    viewIllnessRemedy(illness_id){
         const sql = `SELECT * FROM remedies WHERE illness = ? AND status = ?`;
-        const params = [illness, "approved"];
+        const params = [illness_id, "approved"];
 
         return this.dao.all(sql, params);
     }

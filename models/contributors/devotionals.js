@@ -36,13 +36,12 @@ class Devotionals{
         const sql = `CREATE TABLE IF NOT EXISTS topics(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             topic TEXT NOT NULL
-            
         )`;
 
         return this.dao.run(sql);
     }
 
-    addDevotion(devotion_id, topic, title, author, reading, sermon, audiourl = "", likes = 0, dislikes = 0, image = "", status = "pending"){
+    addDevotion(devotion_id, topic, title, author, reading, sermon, audiourl = "", image = "", likes = 0, dislikes = 0, status = "pending"){
         const sql = `INSERT INTO devotions (devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const params = [devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status];
 

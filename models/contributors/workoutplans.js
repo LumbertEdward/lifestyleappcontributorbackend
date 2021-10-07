@@ -5,7 +5,7 @@ class WorkOutPlan{
 
     createWorkOutPLanTable(){
         const sql = `CREATE TABLE IF NOT EXISTS workout(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             workout_id TEXT NOT NULL,
             workout_name TEXT NOT NULL,
             days INTEGER NOT NULL,
@@ -22,7 +22,7 @@ class WorkOutPlan{
 
     createWorkOutPLanDays(){
         const sql = `CREATE TABLE IF NOT EXISTS workoutdays(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             workout_id TEXT NOT NULL,
             day_id TEXT NOT NULL,
             day TEXT NOT NULL,
@@ -35,7 +35,7 @@ class WorkOutPlan{
 
     createWorkOutPLanNumbers(){
         const sql = `CREATE TABLE IF NOT EXISTS workoutnumbers(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             day_id TEXT NOT NULL,
             number_id TEXT NOT NULL,
             number TEXT NOT NULL,
@@ -47,7 +47,7 @@ class WorkOutPlan{
 
     createWorkOutPLanExercise(){
         const sql = `CREATE TABLE IF NOT EXISTS workoutexercise(
-            id INTEGER PRIMARY KEY AUTOCOMPLETE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             number_id TEXT NOT NULL,
             exercise_id TEXT NOT NULL,
             exercise_name TEXT NOT NULL,

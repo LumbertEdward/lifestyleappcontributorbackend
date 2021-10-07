@@ -32,7 +32,7 @@ class Poems{
     createAuthorsTable(){
         const sql = `CREATE TABLE IF NOT EXISTS authors(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            author_id TEXT NOT NULL,
+            contributor_id TEXT NOT NULL,
             author_name TEXT NOT NULL
         )`;
 
@@ -53,9 +53,9 @@ class Poems{
         return this.dao.run(sql, params);
     }
 
-    addAuthors(author_id, author_name){
-        const sql = `INSERT INTO authors (author_id, author_name) VALUES (?, ?)`;
-        const params = [author_id, author_name];
+    addAuthors(contributor_id, author_name){
+        const sql = `INSERT INTO authors (contributor_id, author_name) VALUES (?, ?)`;
+        const params = [contributor_id, author_name];
 
         return this.dao.run(sql, params);
     }
@@ -120,9 +120,9 @@ class Poems{
         return this.dao.get(sql, params);
     }
 
-    viewSelectedAuthorTitles(author){
-        const sql = `SELECT title FROM poems WHERE author = ? AND status = ?`;
-        const params = [author, "approved"];
+    viewSelectedAuthorTitles(contributor_id){
+        const sql = `SELECT title FROM poems WHERE contributor_id = ? AND status = ?`;
+        const params = [contributor_id, "approved"];
         
         return this.dao.all(sql, params);
     }
