@@ -13,22 +13,31 @@ exports.AddWorkOutPlan = function(req, res) {
         var category = req.body.category
         var image = req.body.image
 
-        WorkOut.createWorkOutPLanTable()
-        .then(() => WorkOut.addWorkOut(workout_id, workout_name, days, category, image))
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (workout_id != null) {
+            WorkOut.createWorkOutPLanTable()
+            .then(() => WorkOut.addWorkOut(workout_id, workout_name, days, category, image))
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -41,22 +50,31 @@ exports.AddWorkOutPlanDays = function(req, res) {
         var exercises = req.body.exercises
         var image = req.body.image;
 
-        WorkOut.createWorkOutPLanDays()
-        .then(() => WorkOut.addWorkOutDays(workout_id, day_id, day, exercises, image))
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (workout_id != null) {
+            WorkOut.createWorkOutPLanDays()
+            .then(() => WorkOut.addWorkOutDays(workout_id, day_id, day, exercises, image))
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -68,22 +86,32 @@ exports.AddWorkOutPlanNumbers = function(req, res) {
         var number = req.body.number
         var image = req.body.image
 
-        WorkOut.createWorkOutPLanNumbers()
-        .then(() => WorkOut.addWorkOutNumbers(day_id, number_id, number, image))
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (number_id != null) {
+            WorkOut.createWorkOutPLanNumbers()
+            .then(() => WorkOut.addWorkOutNumbers(day_id, number_id, number, image))
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Paramater Missing"});
+
+        }  
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -97,22 +125,31 @@ exports.AddWorkOutPlanExercise = function(req, res) {
         var description = req.body.description
         var image = req.body.image
 
-        WorkOut.createWorkOutPLanExercise()
-        .then(() => WorkOut.addWorkOutExercise(number_id, exercise_id, exercise_name, body_part, description, image))
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (number_id != null) {
+            WorkOut.createWorkOutPLanExercise()
+            .then(() => WorkOut.addWorkOutExercise(number_id, exercise_id, exercise_name, body_part, description, image))
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -121,21 +158,30 @@ exports.ApproveWorkOutPlan = function(req, res) {
     if (errors.isEmpty) {
         var workout_id = req.query.workout_id
 
-        WorkOut.approveWorkOutPlan(workout_id)
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (workout_id != null) {
+            WorkOut.approveWorkOutPlan(workout_id)
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -145,21 +191,30 @@ exports.UpdatePlanLikes = function(req, res) {
         var workout_id = req.query.workout_id
         var likes = req.query.likes
 
-        WorkOut.updateLikes(workout_id, likes)
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (workout_id != null) {
+            WorkOut.updateLikes(workout_id, likes)
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -169,21 +224,30 @@ exports.UpdatePlanDisLikes = function(req, res) {
         var workout_id = req.query.workout_id
         var dislikes = req.query.dislikes
 
-        WorkOut.updateDislikes(workout_id, dislikes)
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (workout_id != null) {
+            WorkOut.updateDislikes(workout_id, dislikes)
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -193,21 +257,30 @@ exports.UpdateExerciseLikes = function(req, res) {
         var exercise_id = req.query.exercise_id
         var likes = req.body.likes
 
-        WorkOut.updateExerciseLikes(exercise_id, likes)
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (exercise_id != null) {
+            WorkOut.updateExerciseLikes(exercise_id, likes)
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -217,21 +290,30 @@ exports.UpdateExerciseDisLikes = function(req, res) {
         var exercise_id = req.query.exercise_id
         var dislikes = req.body.dislikes
 
-        WorkOut.updateExerciseDislikes(exercise_id, dislikes)
-        .then((data) => {
-            if (data.data != null || data.data != undefined) {
-                res.json({"message": "true"});
-                console.log(data);
-            }
-            else{
-                res.json({"message": "false"});
-                console.log(data);
-            }
-            
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        if (exercise_id != null) {
+            WorkOut.updateExerciseDislikes(exercise_id, dislikes)
+            .then((data) => {
+                if (data.data != null || data.data != undefined) {
+                    res.json({"message": "true"});
+                    console.log(data);
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Udefined"});
+                    console.log(data);
+                }
+                
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err});
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
+    }
+    else{
+        res.json({"message": "false", "error": "Input Error"});
     }
 }
 
@@ -242,10 +324,11 @@ exports.ShowWorkOutPlans = function(req, res) {
             res.json({"message": "true", "data": data.data});
         }
         else{
-            res.json({"message": "true", "data": []});
+            res.json({"message": "false", "error": "Data Undefined"});
         }
     })
     .catch((err) => {
+        res.json({"message": "false", "error": err});
         console.log(err);
     })
 }
@@ -262,17 +345,20 @@ exports.ViewWorkOutPlanDays = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": []});
+                    res.json({"message": "false", "error": "Data Undefined"});
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err});
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Errors"})
     }
 }
 
@@ -288,17 +374,20 @@ exports.ViewSelectedWorkOutPlanDaysExercises = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": []});
+                    res.json({"message": "false", "error": "Data Undefined"});
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err});
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Errors"});
     }
 }
 
@@ -314,16 +403,19 @@ exports.ViewSelectedExercise = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": {}});
+                    res.json({"message": "false", "error": "Data Undefined"});
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err});
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Errors"});
     }
 }

@@ -19,12 +19,21 @@ exports.AddDevotion = function(req, res) {
     Devotion.createDevotionalTable()
     .then(() => Devotion.addDevotion(devotion_id, topic, title, author, reading, sermon, audiourl, image))
     .then((data) => {
-      res.json({"message": "true"});
+      if (data.data != null && data.data != undefined) {
+        res.json({"message": "true"});
+      }
+      else{
+        res.json({"message": "false", "error": "Data undefined"});
+      }
     })
     .catch((err) => {
+      res.json({"message": "false", "error": err});
       console.log(err);
     })
   
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -33,16 +42,29 @@ exports.AddVerses = function(req, res) {
   if (errors.isEmpty) {
     var devotion_id = req.body.devotion_id
     var verse = req.body.verse
-    
-    Devotion.createVersesTable()
-    .then(() => Devotion.addVerses(devotion_id, verse))
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  
+
+    if (devotion_id != null) {
+      Devotion.createVersesTable()
+      .then(() => Devotion.addVerses(devotion_id, verse))
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }  
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -50,16 +72,29 @@ exports.AddTopic = function(req, res) {
   var errors = validationResult(req);
   if (errors.isEmpty) {
     var topic = req.body.topic
-    
-    Devotion.createTopicsTable()
-    .then(() => Devotion.addTopic(topic))
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  
+
+    if (topic != null) {
+      Devotion.createTopicsTable()
+      .then(() => Devotion.addTopic(topic))
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    } 
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    } 
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -67,15 +102,28 @@ exports.ApproveDevotion = function(req, res) {
   var errors = validationResult(req);
   if (errors.isEmpty) {
     var devotion_id = req.query.devotion_id
-    
-    Devotion.approveDevotion(devotion_id)
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  
+
+    if (devotion_id != null) {
+      Devotion.approveDevotion(devotion_id)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    } 
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    } 
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -84,15 +132,28 @@ exports.UpdateDevotionLikes = function(req, res) {
   if (errors.isEmpty) {
     var devotion_id = req.query.devotion_id
     var likes = req.query.likes
-    
-    Devotion.updateLikes(devotion_id, likes)
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  
+
+    if (devotion_id != null) {
+      Devotion.updateLikes(devotion_id, likes)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }  
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -101,24 +162,43 @@ exports.UpdateDevotionDisLikes = function(req, res) {
   if (errors.isEmpty) {
     var devotion_id = req.query.devotion_id
     var dislikes = req.query.dislikes
-    
-    Devotion.updateDislikes(devotion_id, dislikes)
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  
+
+    if (devotion_id != null) {
+      Devotion.updateDislikes(devotion_id, dislikes)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }  
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
 exports.PendingDevotions = function(req, res) {
   Devotion.viewPendingDevotions()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -126,9 +206,15 @@ exports.PendingDevotions = function(req, res) {
 exports.ApprovedDevotions = function(req, res) {
   Devotion.viewApprovedDevotions()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -136,9 +222,15 @@ exports.ApprovedDevotions = function(req, res) {
 exports.ViewDevotionTopics = function(req, res) {
   Devotion.viewTopics()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -147,13 +239,28 @@ exports.ViewDevotionTopicTitles = function(req, res) {
   var errors = validationResult(req);
   if (errors.isEmpty) {
     var topic = req.query.topic;
-    Devotion.viewTopicTitles(topic)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+
+    if (topic != null) {
+      Devotion.viewTopicTitles(topic)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -161,13 +268,27 @@ exports.ViewDevotionSelectedTitle = function(req, res) {
   var errors = validationResult(req);
   if (errors.isEmpty) {
     var title = req.query.title;
-    Devotion.viewSelectedTitle(title)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+
+    if (title != null) {
+      Devotion.viewSelectedTitle(title)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -175,13 +296,30 @@ exports.ViewDevotionVerses = function(req, res) {
   var errors = validationResult(req);
   if (errors.isEmpty) {
     var devotion_id = req.query.devotion_id;
-    Devotion.viewSelectedTitleVerses(devotion_id)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+
+    if (devotion_id != null) {
+      Devotion.viewSelectedTitleVerses(devotion_id)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data undefined"});
+        }
+        
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
+    console.log("input error");
   }
 }
 

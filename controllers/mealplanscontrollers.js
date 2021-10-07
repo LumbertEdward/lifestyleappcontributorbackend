@@ -19,24 +19,28 @@ exports.AddMealPlan = function(req, res, next) {
         var contributor_id = req.body.contributor_id
         var image = req.body.image
 
-        Meals.createMealPLanTable()
-        .then(() => Meals.addMealPlan(plan_id, name, category, bodytype, weight, body_goal, minimum_age, maximum_age, date_added, contributor_id, image))
-        .then((data) => {
-            if (data) {
-                res.json({"message": "true"});
-            }
-            else{
-                res.json({"message": "false"});
-            }
-            
-            console.log(data)
-        })
-        .catch((err) => {
-            res.json({"message": "false"})
-            console.log(err);
-        })
+        if (plan_id != null) {
+            Meals.createMealPLanTable()
+            .then(() => Meals.addMealPlan(plan_id, name, category, bodytype, weight, body_goal, minimum_age, maximum_age, date_added, contributor_id, image))
+            .then((data) => {
+                if (data) {
+                    res.json({"message": "true"});
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"})
+                }
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err})
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
+        res.json({"message": "false", "error": "Input Error"})
         console.log("Errors");
     }
 }
@@ -49,23 +53,28 @@ exports.AddDays = function(req, res, next) {
         var day = req.body.day
         var image = req.body.image
 
-        Meals.createDaysTable()
-        .then(() => Meals.addDays(day_id, plan_id, day, image))
-        .then((data) => {
-            if (data) {
-                res.json({"message": "true"});
-            }
-            else{
-                res.json({"message": "false"});
-            }
-            console.log(data)
-        })
-        .catch((err) => {
-            res.json({"message": "false"})
-            console.log(err);
-        })
+        if (plan_id != null) {
+            Meals.createDaysTable()
+            .then(() => Meals.addDays(day_id, plan_id, day, image))
+            .then((data) => {
+                if (data) {
+                    res.json({"message": "true"});
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"})
+                }
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err})
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
+        res.json({"message": "false", "error": "Input Error"})
         console.log("Errors");
     }
 }
@@ -79,23 +88,28 @@ exports.AddDuration = function(req, res, next) {
         var duration = req.body.duration
         var image = req.body.image
 
-        Meals.createDurationsTable()
-        .then(() => Meals.addDuration(plan_id, duration_id, day_id, duration, image))
-        .then((data) => {
-            if (data) {
-                res.json({"message": "true"});
-            }
-            else{
-                res.json({"message": "false"});
-            }
-            console.log(data)
-        })
-        .catch((err) => {
-            res.json({"message": "false"})
-            console.log(err);
-        })
+        if (plan_id != null) {
+            Meals.createDurationsTable()
+            .then(() => Meals.addDuration(plan_id, duration_id, day_id, duration, image))
+            .then((data) => {
+                if (data) {
+                    res.json({"message": "true"});
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"})
+                }
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err})
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
+        res.json({"message": "false", "error": "Input Error"})
         console.log("Errors");
     }
 }
@@ -110,23 +124,28 @@ exports.AddMeal = function(req, res, next) {
         var description = req.body.description
         var image = req.body.image
 
-        Meals.createDurationsTable()
-        .then(() => Meals.addMeal(plan_id, meal_id, duration_id, name, description, image))
-        .then((data) => {
-            if (data) {
-                res.json({"message": "true"});
-            }
-            else{
-                res.json({"message": "false"});
-            }
-            console.log(data)
-        })
-        .catch((err) => {
-            res.json({"message": "false"})
-            console.log(err);
-        })
+        if (plan_id != null) {
+            Meals.createDurationsTable()
+            .then(() => Meals.addMeal(plan_id, meal_id, duration_id, name, description, image))
+            .then((data) => {
+                if (data.data != null && data.data != undefined) {
+                    res.json({"message": "true"});
+                }
+                else{
+                    res.json({"message": "false", "error": "Data Undefined"})
+                }
+            })
+            .catch((err) => {
+                res.json({"message": "false", "error": err})
+                console.log(err);
+            })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
+        res.json({"message": "false", "error": "Input Error"})
         console.log("Errors");
     }
 }
@@ -138,10 +157,11 @@ exports.AllMealPlans = function(req, res) {
             res.json({"message": "true", "data": data.data});
         }
         else{
-            res.json({"message": "true", "data": []});
+            res.json({"message": "false", "error": "Data Undefined"})
         }
     })
     .catch((err) => {
+        res.json({"message": "false", "error": err})
         console.log(err);
     })
 }
@@ -153,10 +173,11 @@ exports.AllPendingMealPlans = function(req, res) {
             res.json({"message": "true", "data": data.data});
         }
         else{
-            res.json({"message": "true", "data": []});
+            res.json({"message": "false", "error": "Data Undefined"})
         }
     })
     .catch((err) => {
+        res.json({"message": "false", "error": err})
         console.log(err);
     })
 }
@@ -168,10 +189,11 @@ exports.AllApprovedMealPlans = function(req, res) {
             res.json({"message": "true", "data": data.data});
         }
         else{
-            res.json({"message": "true", "data": []});
+            res.json({"message": "false", "error": "Data Undefined"})
         }
     })
     .catch((err) => {
+        res.json({"message": "false", "error": err})
         console.log(err);
     })
 }
@@ -188,17 +210,20 @@ exports.ViewContributorMealPlans = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": []});
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Error"})
     }
 }
 
@@ -214,17 +239,20 @@ exports.ViewMealPlanDetails = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": {}});
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Error"})
     }
 }
 
@@ -240,17 +268,20 @@ exports.ViewMealPlanDays = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": []});
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Error"})
     }
 }
 
@@ -266,17 +297,20 @@ exports.ViewDayDurations = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": []});
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Error"})
     }
 }
 
@@ -292,17 +326,20 @@ exports.ViewMealDetails = function(req, res) {
                     res.json({"message": "true", "data": data.data})
                 }
                 else{
-                    res.json({"message": "true", "data": {}});
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
                 console.log(err);
             })
         }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
+        }
     }
     else{
-        res.json({"message": "false"})
+        res.json({"message": "false", "error": "Input Error"})
     }
 }
 
@@ -321,20 +358,23 @@ exports.UpdateMealPlan = function(req, res) {
         if (plan_id != null) {
             Meals.updateMealPlan(plan_id, name, bodytype, weight, body_goal, minimum_age, maximum_age, image)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -349,20 +389,23 @@ exports.UpdateMeal = function(req, res) {
         if (meal_id != null) {
             Meals.updateMeal(meal_id, name, description, image)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -374,20 +417,23 @@ exports.UpdateMealPlanStatus = function(req, res) {
         if (plan_id != null) {
             Meals.updateMealPlanStatus(plan_id)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -400,20 +446,23 @@ exports.UpdateMealPlanLikes = function(req, res) {
         if (plan_id != null) {
             Meals.updateMealPlanLikes(plan_id, likes)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -426,20 +475,23 @@ exports.UpdateMealPlanDisLikes = function(req, res) {
         if (plan_id != null) {
             Meals.updateMealPlanDisLikes(plan_id, dislikes)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err})
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -452,20 +504,23 @@ exports.UpdateMealLikes = function(req, res) {
         if (meal_id != null) {
             Meals.updateMealLikes(meal_id, likes)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err});
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
         }
     }
     else{
-        res.json({"message": "false", "error": "input error"})
+        res.json({"message": "false", "error": "Input error"})
     }
 }
 
@@ -478,16 +533,19 @@ exports.UpdateMealDisLikes = function(req, res) {
         if (meal_id != null) {
             Meals.updateMealDisLikes(meal_id, dislikes)
             .then((data) => {
-                if (data != null) {
+                if (data.data != null && data.data != undefined) {
                     res.json({"message": "true"})
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
-                res.json({"message": "false"});
+                res.json({"message": "false", "error": err});
             })
+        }
+        else{
+            res.json({"message": "false", "error": "Parameter Missing"});
         }
     }
     else{
@@ -510,19 +568,20 @@ exports.DeletePlan = function(req, res) {
                     console.log("deleted");
                 }
                 else{
-                    res.json({"message": "false"})
+                    res.json({"message": "false", "error": "Data Undefined"})
                 }
             })
             .catch((err) => {
+                res.json({"message": "false", "error": err})
                 console.log(err)
             })
         }
         else{
-            res.json({"message": "false", "Error": "No Plan ID"})
+            res.json({"message": "false", "error": "Parameter Missing"})
         }
     }
     else{
-        res.json({"message": "false", "Error": "Validation error"})
+        res.json({"message": "false", "error": "Validation error"})
     }
 }
 

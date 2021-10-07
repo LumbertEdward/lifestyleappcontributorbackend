@@ -13,14 +13,28 @@ exports.AddPoem = function(req, res) {
     var author = req.body.author
     var linecount = req.body.linecount
 
-    Poem.createPoemTable()
-    .then(() => Poem.addPoem(poem_id, contributor_id, title, author, linecount))
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (poem_id != null) {
+      Poem.createPoemTable()
+      .then(() => Poem.addPoem(poem_id, contributor_id, title, author, linecount))
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -30,14 +44,28 @@ exports.AddLines = function(req, res) {
     var poem_id = req.body.poem_id
     var line = req.body.line
 
-    Poem.createPoemLinesTable()
-    .then(() => Poem.addLines(poem_id, line))
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (poem_id != null) {
+      Poem.createPoemLinesTable()
+      .then(() => Poem.addLines(poem_id, line))
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -47,14 +75,28 @@ exports.AddAuthors = function(req, res) {
     var contributor_id = req.body.contributor_id
     var author_name = req.body.author_name
 
-    Poem.createAuthorsTable()
-    .then(() => Poem.addAuthors(contributor_id, author_name))
-    .then((data) => {
-      res.json({"message": "true"});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (contributor_id != null) {
+      Poem.createAuthorsTable()
+      .then(() => Poem.addAuthors(contributor_id, author_name))
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -63,13 +105,27 @@ exports.ApprovePoem = function(req, res) {
   if (errors.isEmpty) {
     var poem_id = req.query.poem_id
 
-    Poem.approvePoem(poem_id)
-    .then((data) => {
-      res.json({"message": "true"})
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (poem_id) {
+      Poem.approvePoem(poem_id)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -79,13 +135,27 @@ exports.UpdateLikes = function(req, res) {
     var poem_id = req.query.poem_id
     var likes = req.query.likes
 
-    Poem.updateLikes(poem_id, likes)
-    .then((data) => {
-      res.json({"message": "true"})
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (poem_id != null) {
+      Poem.updateLikes(poem_id, likes)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -94,23 +164,43 @@ exports.UpdateDisLikes = function(req, res) {
   if (errors.isEmpty) {
     var poem_id = req.query.poem_id
     var dislikes = req.query.dislikes
-    
-    Poem.UpdateDisLikes(poem_id, dislikes)
-    .then((data) => {
-      res.json({"message": "true"})
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+
+    if (poem_id != null) {
+      Poem.UpdateDisLikes(poem_id, dislikes)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true"});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
 exports.ViewPendingPoems = function(req, res) {
   Poem.viewPendingPoems()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data Undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -118,9 +208,15 @@ exports.ViewPendingPoems = function(req, res) {
 exports.ViewApprovedPoems = function(req, res) {
   Poem.viewApprovedPoems()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data Undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -128,9 +224,15 @@ exports.ViewApprovedPoems = function(req, res) {
 exports.ViewAllPoems = function(req, res) {
   Poem.viewAllPoems()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data Undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -138,9 +240,15 @@ exports.ViewAllPoems = function(req, res) {
 exports.ViewAllAuthors = function(req, res) {
   Poem.viewAllAuthors()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data Undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -148,9 +256,15 @@ exports.ViewAllAuthors = function(req, res) {
 exports.ViewAllTitles = function(req, res) {
   Poem.viewAllTitles()
   .then((data) => {
-    res.json({"message": "true", "data": data.data});
+    if (data.data != null && data.data != undefined) {
+      res.json({"message": "true", "data": data.data});
+    }
+    else{
+      res.json({"message": "false", "error": "Data Undefined"});
+    }
   })
   .catch((err) => {
+    res.json({"message": "false", "error": err});
     console.log(err);
   })
 }
@@ -160,13 +274,27 @@ exports.ViewSelectedPoem = function(req, res) {
   if (errors.isEmpty) {
     var poem_id = req.query.poem_id
 
-    Poem.viewSelectedPoem(poem_id)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .then((err) => {
-      console.log(err);
-    })
+    if (poem_id != null) {
+      Poem.viewSelectedPoem(poem_id)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .then((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -175,13 +303,27 @@ exports.ViewSelectedAuthorTitle = function(req, res) {
   if (errors.isEmpty) {
     var contributor_id = req.query.contributor_id
 
-    Poem.viewSelectedAuthorTitles(contributor_id)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .then((err) => {
-      console.log(err);
-    })
+    if (contributor_id != null) {
+      Poem.viewSelectedAuthorTitles(contributor_id)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .catch((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }
 
@@ -190,12 +332,26 @@ exports.ViewSelectedTitle = function(req, res) {
   if (errors.isEmpty) {
     var title = req.query.title
 
-    Poem.viewSelectedTitle(title)
-    .then((data) => {
-      res.json({"message": "true", "data": data.data});
-    })
-    .then((err) => {
-      console.log(err);
-    })
+    if (title != null) {
+      Poem.viewSelectedTitle(title)
+      .then((data) => {
+        if (data.data != null && data.data != undefined) {
+          res.json({"message": "true", "data": data.data});
+        }
+        else{
+          res.json({"message": "false", "error": "Data Undefined"});
+        }
+      })
+      .then((err) => {
+        res.json({"message": "false", "error": err});
+        console.log(err);
+      })
+    }
+    else{
+      res.json({"message": "false", "error": "Parameter Missing"});
+    }
+  }
+  else{
+    res.json({"message": "false", "error": "Input Error"});
   }
 }

@@ -20,8 +20,6 @@ exports.Register = async function(req, res, next) {
             var username = req.body.username
             var password = req.body.password
             var profile_pic = req.body.profile_pic   
-            
-            console.log(profile_pic);
 
             if ((contributor_id != null && contributor_id != "") && firstname != "" && lastname != "" && email != "" && username != "" && password != "") {
                 const encryptedpassword = await bcrypt.hash(password, 10);
@@ -31,18 +29,27 @@ exports.Register = async function(req, res, next) {
                 Account.createContributorTable()
                 .then(() => Account.registerContributor(contributor_id, firstname, lastname, email, username, profile_pic, age, gender, country, city, 0, encryptedpassword))
                 .then((data) => {
-                    if (data) {
+                    if (data.data != null && data.data != undefined) {
                         res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
                     }
                 })
                 .catch((err) => {
                     res.json({"message": "false", "error": err});
                 })
             }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
         }
         
     } catch (error) {
-        res.json({"message": "false", "error": "Input Required"})
+        res.json({"message": "false", "error": error})
     }
 }
 
@@ -64,18 +71,27 @@ exports.RegisterContributorEducation = function(req, res, next) {
                 Account.createEducationTable()
                 .then(() => Account.registerContributorEducation(contributor_id, school, degree, field, startdate, enddate, grade, description, media_url))
                 .then((data) => {
-                    if (data) {
+                    if (data.data != undefined && data.data != null) {
                         res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
                     }
                 })
                 .catch((err) => {
                     res.json({"message": "false", "error": err});
                 })
             }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
         }
         
     } catch (error) {
-        res.json({"message": "false", "error": "Input Required"})
+        res.json({"message": "false", "error": error})
     }
 }
 
@@ -97,18 +113,27 @@ exports.RegisterContributorWorkExperience = function(req, res, next) {
                 Account.createWorkExperienceTable()
                 .then(() => Account.registerContributorWorkExperience(contributor_id, title, employment_type, company_name, location, industry, startdate, description, media_url))
                 .then((data) => {
-                    if (data) {
+                    if (data.data != null && data.data != undefined) {
                         res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
                     }
                 })
                 .catch((err) => {
                     res.json({"message": "false", "error": err});
                 })
             }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
         }
         
     } catch (error) {
-        res.json({"message": "false", "error": "Input Required"})
+        res.json({"message": "false", "error": error})
     }
 }
 
@@ -149,7 +174,11 @@ exports.Login = async function(req, res) {
             }
             
         }
+        else{
+            res.json({"message": "false", "error": "Input Error"});
+        }
     } catch (error) {
+        res.json({"message": "false", "error": error});
         console.log(error)
     }
     
@@ -173,18 +202,27 @@ exports.UpdateContributor = async function(req, res, next) {
                 Account.createContributorTable()
                 .then(() => Account.updateContributor(contributor_id, firstname, lastname, profile_pic, age, gender, country, city))
                 .then((data) => {
-                    if (data) {
+                    if (data.data != undefined && data.data != null) {
                         res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
                     }
                 })
                 .catch((err) => {
                     res.json({"message": "false", "error": err});
                 })
             }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
         }
         
     } catch (error) {
-        res.json({"message": "false", "error": "Input Required"})
+        res.json({"message": "false", "error": error})
     }
 }
 
@@ -199,18 +237,27 @@ exports.UpdateContributorEarnings = function(req, res, next) {
                 Account.createContributorTable()
                 .then(() => Account.updateContributorEarnings(contributor_id, earnings))
                 .then((data) => {
-                    if (data) {
+                    if (data.data != undefined && data.data != null) {
                         res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
                     }
                 })
                 .catch((err) => {
                     res.json({"message": "false", "error": err});
                 })
             }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
         }
         
     } catch (error) {
-        res.json({"message": "false", "error": "Input Required"})
+        res.json({"message": "false", "error": error})
     }
 }
 
@@ -221,10 +268,11 @@ exports.AllContributors = function(req, res) {
             res.json({"message": "true", "data": data.data});
         }
         else{
-            res.json({"message": "true", "data": {}});
+            res.json({"message": "false", "error": "Data Undefined"});
         }
     })
     .catch((err) => {
+        res.json({"message": "false", "error": err});
         console.log(err);
     })
 }
