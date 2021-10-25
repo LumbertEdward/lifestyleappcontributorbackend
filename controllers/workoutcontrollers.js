@@ -9,13 +9,14 @@ exports.AddWorkOutPlan = function(req, res) {
     if (errors.isEmpty) {
         var workout_id = req.body.workout_id
         var workout_name = req.body.workout_name
+        var contributor_id = req.body.contributor_id
         var days = req.body.days
         var category = req.body.category
         var image = req.body.image
 
         if (workout_id != null) {
             WorkOut.createWorkOutPLanTable()
-            .then(() => WorkOut.addWorkOut(workout_id, workout_name, days, category, image))
+            .then(() => WorkOut.addWorkOut(contributor_id, workout_id, workout_name, days, category, image))
             .then((data) => {
                 if (data.data != null || data.data != undefined) {
                     res.json({"message": "true"});
@@ -331,6 +332,30 @@ exports.ShowWorkOutPlans = function(req, res) {
         res.json({"message": "false", "error": err});
         console.log(err);
     })
+}
+
+exports.ShowContributorWorkOutPlans = function(req, res) {
+    var errors = validationResult(req)
+    if (errors.isEmpty) {
+        var contributor_id = req.query.contributor_id
+        
+        WorkOut.viewContributorWorkouts(contributor_id)
+        .then((data) => {
+            if (data.data != undefined || data.data != null) {
+                res.json({"message": "true", "data": data.data});
+            }
+            else{
+                res.json({"message": "false", "error": "Data Undefined"});
+            }
+        })
+        .catch((err) => {
+            res.json({"message": "false", "error": err});
+            console.log(err);
+        })
+    }
+    else{
+
+    }
 }
 
 exports.ViewWorkOutPlanDays = function(req, res) {

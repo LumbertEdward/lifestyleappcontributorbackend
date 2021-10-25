@@ -11,11 +11,12 @@ exports.AddRemedy = function(req, res) {
     var illness = req.body.illness
     var remedy_name = req.body.remedy_name
     var description = req.body.description
+    var contributor_id = req.query.contributor_id
     var image = req.body.image
     
     if (remedy_id != null) {
       Remedies.createRemediesTable()
-      .then(() => Remedies.addRemedy(remedy_id, illness, remedy_name, description, image))
+      .then(() => Remedies.addRemedy(contributor_id, remedy_id, illness, remedy_name, description, image))
       .then((data) => {
         if (data.data != null && data.data != undefined) {
           res.json({"message": "true"});
@@ -205,6 +206,30 @@ exports.ViewIllnesses = function(req, res) {
     res.json({"message": "false", "error": err});
     console.log(err)
   })
+}
+
+exports.ViewContributorRemedies = function(req, res) {
+  var errors = validationResult(req)
+  if (errors.isEmpty) {
+    var contributor_id = req.query.contributor_id
+
+    Remedies.viewContributorRemedies(contributor_id)
+    .then((data) => {
+      if (data.data != null && data.data != undefined) {
+        res.json({"message": "true", "data": data.data});
+      }
+      else{
+        res.json({"message": "false", "error": "Data undefined"});
+      }
+    })
+    .catch((err) => {
+      res.json({"message": "false", "error": err});
+      console.log(err)
+    })
+  }
+  else{
+    res.json({"message": "false"});
+  }
 }
 
 exports.ViewIllnessRemedy = function(req, res) {

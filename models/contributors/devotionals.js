@@ -6,6 +6,7 @@ class Devotionals{
     createDevotionalTable(){
         const sql = `CREATE TABLE IF NOT EXISTS devotions(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            contributor_id TEXT NOT NULL,
             devotion_id TEXT NOT NULL,
             topic TEXT NOT NULL,
             title TEXT NOT NULL,
@@ -41,9 +42,9 @@ class Devotionals{
         return this.dao.run(sql);
     }
 
-    addDevotion(devotion_id, topic, title, author, reading, sermon, audiourl = "", image = "", likes = 0, dislikes = 0, status = "pending"){
-        const sql = `INSERT INTO devotions (devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const params = [devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status];
+    addDevotion(contributor_id, devotion_id, topic, title, author, reading, sermon, audiourl = "", image = "", likes = 0, dislikes = 0, status = "pending"){
+        const sql = `INSERT INTO devotions (contributor_id, devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const params = [contributor_id, devotion_id, topic, title, author, reading, sermon, audiourl, likes, dislikes, image, status];
 
         return this.dao.run(sql, params);
     }
@@ -110,6 +111,13 @@ class Devotionals{
         return this.dao.all(sql, params);
     }
 
+    viewContributorDevotions(contributor_id){
+        const sql = `SELECT title FROM devotions WHERE contributor_id = ?`;
+        const params = [contributor_id]
+
+        return this.dao.all(sql, params);
+    }
+
     viewSelectedTitle(title){
         const sql = `SELECT * FROM devotions WHERE title = ?`;
         const params = [title];
@@ -118,7 +126,7 @@ class Devotionals{
     }
 
     viewSelectedTitleVerses(devotion_id){
-        const sql = `SELECT * FROM devotions WHERE devotion_id = ?`;
+        const sql = `SELECT * FROM verses WHERE devotion_id = ?`;
         const params = [devotion_id];
 
         return this.dao.all(sql, params);

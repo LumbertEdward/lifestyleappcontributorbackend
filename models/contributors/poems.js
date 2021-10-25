@@ -101,6 +101,13 @@ class Poems{
         return this.dao.all(sql);
     }
 
+    viewContributorPoems(contributor_id){
+        const sql = `SELECT * FROM poems WHERE contributor_id = ?`;
+        const params = [contributor_id];
+        
+        return this.dao.all(sql, params);
+    }
+
     viewAllAuthors(){
         const sql = `SELECT * FROM authors`;
         

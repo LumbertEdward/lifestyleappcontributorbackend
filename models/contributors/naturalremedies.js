@@ -6,6 +6,7 @@ class Remedies{
     createRemediesTable(){
         const sql = `CREATE TABLE IF NOT EXISTS remedies(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            contributor_id TEXT NOT NULL,
             remedy_id TEXT NOT NULL,
             illness TEXT NOT NULL,
             remedy_name TEXT NOT NULL,
@@ -29,9 +30,9 @@ class Remedies{
         return this.dao.run(sql);
     }
 
-    addRemedy(remedy_id, illness, remedy_name, description, image = "", likes = 0, dislikes = 0, status = "pending"){
-        const sql = `INSERT INTO remedies (remedy_id, illness, remedy_name, description, image, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const params = [remedy_id, illness, remedy_name, description, image, likes, dislikes, status];
+    addRemedy(contributor_id, remedy_id, illness, remedy_name, description, image = "", likes = 0, dislikes = 0, status = "pending"){
+        const sql = `INSERT INTO remedies (contributor_id, remedy_id, illness, remedy_name, description, image, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const params = [contributor_id, remedy_id, illness, remedy_name, description, image, likes, dislikes, status];
 
         return this.dao.run(sql, params);
 
@@ -78,6 +79,12 @@ class Remedies{
         const params = [dislikes, remedy_id];
 
         return this.dao.run(sql, params);
+    }
+
+    viewContributorRemedies(contributor_id){
+        const sql = `SELECT * FROM remedy   WHERE contributor_id = ?`;
+        const params = [contributor_id]
+        return this.dao.all(sql, params);
     }
 
     viewIllnesses(){

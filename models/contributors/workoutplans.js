@@ -6,6 +6,7 @@ class WorkOutPlan{
     createWorkOutPLanTable(){
         const sql = `CREATE TABLE IF NOT EXISTS workout(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            contributor_id TEXT NOT NULL,
             workout_id TEXT NOT NULL,
             workout_name TEXT NOT NULL,
             days INTEGER NOT NULL,
@@ -61,9 +62,9 @@ class WorkOutPlan{
         return this.dao.run(sql);
     }
 
-    addWorkOut(workout_id, workout_name, days, category, image = "", likes = 0, dislikes = 0, status = "pending"){
-        const sql = `INSERT INTO workout (workout_id, workout_name, days, category, image, likes, dislikes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const params = [workout_id, workout_name, days, category, image, likes, dislikes, status];
+    addWorkOut(contributor_id, workout_id, workout_name, days, category, image = "", likes = 0, dislikes = 0, status = "pending"){
+        const sql = `INSERT INTO workout (contributor_id, workout_id, workout_name, days, category, image, likes, dislikes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const params = [contributor_id, workout_id, workout_name, days, category, image, likes, dislikes, status];
 
         return this.dao.run(sql, params);
     }
@@ -127,6 +128,13 @@ class WorkOutPlan{
     viewAllWorkouts(){
         const sql = `SELECT * FROM workout WHERE status = ?`;
         const params = ["approved"];
+
+        return this.dao.all(sql, params);
+    }
+
+    viewContributorWorkouts(contributor_id){
+        const sql = `SELECT * FROM workout WHERE contributor_id = ?`;
+        const params = [contributor_id];
 
         return this.dao.all(sql, params);
     }

@@ -219,6 +219,30 @@ exports.ApprovedDevotions = function(req, res) {
   })
 }
 
+exports.ContributorDevotions = function(req, res) {
+  var errors = validationResult(req)
+  if (errors.isEmpty) {
+    var contributor_id = req.query.contributor_id
+
+    Devotion.viewContributorDevotions(contributor_id)
+    .then((data) => {
+      if (data.data != null && data.data != undefined) {
+        res.json({"message": "true", "data": data.data});
+      }
+      else{
+        res.json({"message": "false", "error": "Data undefined"});
+      }
+    })
+    .catch((err) => {
+      res.json({"message": "false", "error": err});
+      console.log(err);
+    })
+  }
+  else{
+    res.json({"message": "Parameters Error"});
+  }
+}
+
 exports.ViewDevotionTopics = function(req, res) {
   Devotion.viewTopics()
   .then((data) => {

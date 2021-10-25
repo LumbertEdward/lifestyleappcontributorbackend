@@ -237,6 +237,30 @@ exports.ViewAllPoems = function(req, res) {
   })
 }
 
+exports.ViewContributorPoems = function(req, res) {
+  var errors = validationResult(req)
+  if (errors.isEmpty) {
+    var contributor_id = req.query.contributor_id
+
+    Poem.viewContributorPoems(contributor_id)
+    .then((data) => {
+      if (data.data != null && data.data != undefined) {
+        res.json({"message": "true", "data": data.data});
+      }
+      else{
+        res.json({"message": "false", "error": "Data Undefined"});
+      }
+    })
+    .catch((err) => {
+      res.json({"message": "false", "error": err});
+      console.log(err);
+    })
+  }
+  else{
+    res.json({"message": "false"});
+  }
+}
+
 exports.ViewAllAuthors = function(req, res) {
   Poem.viewAllAuthors()
   .then((data) => {
