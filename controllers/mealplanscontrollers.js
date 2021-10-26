@@ -51,11 +51,10 @@ exports.AddDays = function(req, res, next) {
         var plan_id = req.body.plan_id
         var day_id = req.body.day_id
         var day = req.body.day
-        var image = req.body.image
 
         if (plan_id != null) {
             Meals.createDaysTable()
-            .then(() => Meals.addDays(day_id, plan_id, day, image))
+            .then(() => Meals.addDays(day_id, plan_id, day))
             .then((data) => {
                 if (data) {
                     res.json({"message": "true"});
@@ -86,11 +85,10 @@ exports.AddDuration = function(req, res, next) {
         var duration_id = req.body.duration_id
         var day_id = req.body.day_id
         var duration = req.body.duration
-        var image = req.body.image
 
         if (plan_id != null) {
             Meals.createDurationsTable()
-            .then(() => Meals.addDuration(plan_id, duration_id, day_id, duration, image))
+            .then(() => Meals.addDuration(plan_id, duration_id, day_id, duration))
             .then((data) => {
                 if (data) {
                     res.json({"message": "true"});

@@ -31,8 +31,7 @@ class MealPlan{
             duration_id TEXT NOT NULL,
             plan_id TEXT NOT NULL,
             duration TEXT NOT NULL,
-            day_id TEXT NOT NULL,
-            image TEXT NOT NULL
+            day_id TEXT NOT NULL
         )`;
 
         return this.dao.run(sql);
@@ -43,8 +42,7 @@ class MealPlan{
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             day_id TEXT NOT NULL,
             plan_id TEXT NOT NULL,
-            day INTEGER NOT NULL,
-            image TEXT NOT NULL
+            day INTEGER NOT NULL
         )`;
 
         return this.dao.run(sql);
@@ -73,16 +71,16 @@ class MealPlan{
         return this.dao.run(sql, params);
     }
 
-    addDuration(plan_id, duration_id, day_id, duration, image){
-        const sql = `INSERT INTO durations (plan_id, duration_id, day_id, duration, image) VALUES (?, ?, ?, ?, ?)`;
-        const params = [plan_id, duration_id, day_id, duration, image];
+    addDuration(plan_id, duration_id, day_id, duration){
+        const sql = `INSERT INTO durations (plan_id, duration_id, day_id, duration) VALUES (?, ?, ?, ?)`;
+        const params = [plan_id, duration_id, day_id, duration];
 
         return this.dao.run(sql, params);
     }
 
-    addDays(day_id, plan_id, day, image){
-        const sql = `INSERT INTO days (day_id, plan_id, day, image) VALUES (?, ?, ?, ?)`;
-        const params = [day_id, plan_id, day, image];
+    addDays(day_id, plan_id, day){
+        const sql = `INSERT INTO days (day_id, plan_id, daye) VALUES (?, ?, ?)`;
+        const params = [day_id, plan_id, day];
 
         return this.dao.run(sql, params);
     }
