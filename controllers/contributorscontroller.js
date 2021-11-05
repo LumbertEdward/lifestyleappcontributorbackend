@@ -106,12 +106,13 @@ exports.RegisterContributorWorkExperience = function(req, res, next) {
             var location = req.body.location
             var industry = req.body.industry
             var startdate = req.body.startdate
+            var enddate = req.body.enddate
             var description = req.body.description
             var media_url = req.body.media_url       
 
             if (contributor_id != null && contributor_id != "") {
                 Account.createWorkExperienceTable()
-                .then(() => Account.registerContributorWorkExperience(contributor_id, title, employment_type, company_name, location, industry, startdate, description, media_url))
+                .then(() => Account.registerContributorWorkExperience(contributor_id, title, employment_type, company_name, location, industry, startdate, enddate, description, media_url))
                 .then((data) => {
                     if (data.data != null && data.data != undefined) {
                         res.json({"message": "true"})
@@ -201,6 +202,92 @@ exports.UpdateContributor = async function(req, res, next) {
 
                 Account.createContributorTable()
                 .then(() => Account.updateContributor(contributor_id, firstname, lastname, profile_pic, age, gender, country, city))
+                .then((data) => {
+                    if (data.data != undefined && data.data != null) {
+                        res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
+                    }
+                })
+                .catch((err) => {
+                    res.json({"message": "false", "error": err});
+                })
+            }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
+        }
+        
+    } catch (error) {
+        res.json({"message": "false", "error": error})
+    }
+}
+
+exports.UpdateContributorEducation = async function(req, res, next) {
+    try {
+        var errors = validationResult(req);
+        if (errors.isEmpty) {
+            var contributor_id = req.body.contributor_id
+            var school = req.body.school
+            var degree = req.body.degree
+            var field = req.body.field
+            var startdate = req.body.startdate
+            var enddate = req.body.enddate
+            var grade = req.body.grade
+            var description = req.body.description
+            var media_url = req.body.media_url  
+
+            if (contributor_id != null && contributor_id != "") {
+
+                Account.createContributorTable()
+                .then(() => Account.updateContributorEducation(contributor_id, school, degree, field, startdate, enddate, grade, description, media_url))
+                .then((data) => {
+                    if (data.data != undefined && data.data != null) {
+                        res.json({"message": "true"})
+                    }
+                    else{
+                        res.json({"message": "false", "error": "Data Undefined"})
+                    }
+                })
+                .catch((err) => {
+                    res.json({"message": "false", "error": err});
+                })
+            }
+            else{
+                res.json({"message": "false", "error": "Parameter Missing"})
+            }
+        }
+        else{
+            res.json({"message": "false", "error": "Input Error"})
+        }
+        
+    } catch (error) {
+        res.json({"message": "false", "error": error})
+    }
+}
+
+exports.UpdateContributorWorkExperience = async function(req, res, next) {
+    try {
+        var errors = validationResult(req);
+        if (errors.isEmpty) {
+            var contributor_id = req.body.contributor_id
+            var title = req.body.title
+            var employment_type = req.body.employment_type
+            var company_name = req.body.company_name
+            var location = req.body.location
+            var industry = req.body.industry
+            var startdate = req.body.startdate
+            var description = req.body.description
+            var media_url = req.body.media_url  
+
+            if (contributor_id != null && contributor_id != "") {
+
+                Account.createContributorTable()
+                .then(() => Account.updateContributorExperience(contributor_id, title, employment_type, company_name, location, industry, startdate, enddate, description, media_url))
                 .then((data) => {
                     if (data.data != undefined && data.data != null) {
                         res.json({"message": "true"})

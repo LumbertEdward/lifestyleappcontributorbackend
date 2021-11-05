@@ -50,6 +50,7 @@ class ContributorsAccount{
             location TEXT NOT NULL,
             industry TEXT NOT NULL,
             startdate TEXT NOT NULL,
+            enddate TEXT NOT NULL,
             description TEXT NOT NULL,
             media_url,
         )`;
@@ -71,9 +72,9 @@ class ContributorsAccount{
         return this.dao.run(sql, params);
     }
 
-    registerContributorWorkExperience(contributor_id, title = "", employment_type = "", company_name = "", location = "", industry = "", startdate= "", description = "", media_url = ""){
-        const sql = `INSERT INTO contributorsworkexperience (contributor_id, title, employment_type, company_name, location, industry, startdate, description, media_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const params = [contributor_id, title, employment_type, company_name, location, industry, startdate, description, media_url];
+    registerContributorWorkExperience(contributor_id, title = "", employment_type = "", company_name = "", location = "", industry = "", startdate = "", enddate = "", description = "", media_url = ""){
+        const sql = `INSERT INTO contributorsworkexperience (contributor_id, title, employment_type, company_name, location, industry, startdate, enddate, description, media_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const params = [contributor_id, title, employment_type, company_name, location, industry, startdate, enddate, description, media_url];
 
         return this.dao.run(sql, params);
     }
@@ -90,6 +91,20 @@ class ContributorsAccount{
         const params = [firstname, lastname, profile_pic, age, gender, country, city, contributor_id]
 
         return this.dao.run(sql, params);
+    }
+
+    updateContributorEducation(contributor_id, school = "", degree = "", field = "", startdate = "", enddate = "", grade = "", description = "", media_url = ""){
+        const sql = `UPDATE contributorseducation SET school = ?, degree = ?, field = ?, startdate = ?, enddate = ?, grade = ?, description = ?, media_url = ? WHERE contributor_id = ?`;
+        const params = [school, degree, field, startdate, enddate, grade, description, media_url, contributor_id]
+
+        return this.dao.run(sql, params)
+    }
+
+    updateContributorExperience(contributor_id, title = "", employment_type = "", company_name = "", location = "", industry = "", startdate= "", enddate = "", description = "", media_url = ""){
+        const sql = `UPDATE contributorsworkexperience SET title = ?, employment_type = ?, company_name = ?, location = ?, indystry = ?, startdate = ?, enddate = ?, description = ?, media_url = ? WHERE contributor_id = ?`;
+        const params = [title, employment_type, company_name, location, industry, startdate, enddate, description, media_url, contributor_id];
+
+        return this.dao.run(sql, params)
     }
 
     updateContributorEarnings(contributor_id, earnings){

@@ -1,5 +1,5 @@
 const express = require('express');
-const { Register, AllContributors, Login, RegisterContributorEducation, RegisterContributorWorkExperience, UpdateContributor, UpdateContributorEarnings } = require('../controllers/contributorscontroller');
+const { Register, AllContributors, Login, RegisterContributorEducation, RegisterContributorWorkExperience, UpdateContributor, UpdateContributorEarnings, UpdateContributorEducation, UpdateContributorWorkExperience } = require('../controllers/contributorscontroller');
 const { AddDevotion, AddVerses, AddTopic, ApproveDevotion, UpdateDevotionLikes, UpdateDevotionDisLikes, PendingDevotions, ApprovedDevotions, ViewDevotionTopics, ViewDevotionTopicTitles, ViewDevotionSelectedTitle, ViewDevotionVerses, ContributorDevotions } = require('../controllers/devotionalscontroller');
 const { AddMealPlan, AddDays, AddDuration, AddMeal, AllMealPlans, ViewContributorMealPlans, ViewMealPlanDetails, ViewMealPlanDays, ViewDayDurations, ViewMealDetails, DeletePlan, AllPendingMealPlans, AllApprovedMealPlans, UpdateMeal, UpdateMealPlan, UpdateMealPlanLikes, UpdateMealPlanDisLikes, UpdateMealLikes, UpdateMealDisLikes, UpdateMealPlanStatus } = require('../controllers/mealplanscontrollers');
 const { AddRemedy, AddIllness, PendingRemedies, ApprovedRemedies, ApproveRemedy, UpdateRemedyLikes, UpdateRemedyDisLikes, ViewIllnesses, ViewIllnessRemedy, ViewRemedyDetails } = require('../controllers/naturalremediescontroller');
@@ -14,6 +14,8 @@ router.post('/register/education', urlencodedparser, RegisterContributorEducatio
 router.post('/register/workexperience', urlencodedparser, RegisterContributorWorkExperience);
 router.get('/login', Login);
 router.post('/profile/edit', urlencodedparser, UpdateContributor);
+router.post('/education/edit', urlencodedparser, UpdateContributorEducation);
+router.post('/workexperience/edit', urlencodedparser, UpdateContributorWorkExperience);
 router.get('/all', AllContributors);
 router.get('/earnings/update', UpdateContributorEarnings);
 
