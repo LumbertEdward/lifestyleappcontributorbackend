@@ -24,8 +24,6 @@ exports.Register = async function(req, res, next) {
             if ((contributor_id != null && contributor_id != "") && firstname != "" && lastname != "" && email != "" && username != "" && password != "") {
                 const encryptedpassword = await bcrypt.hash(password, 10);
 
-                console.log(encryptedpassword);
-
                 Account.createContributorTable()
                 .then(() => Account.registerContributor(contributor_id, firstname, lastname, email, username, profile_pic, age, gender, country, city, 0, encryptedpassword))
                 .then((data) => {
